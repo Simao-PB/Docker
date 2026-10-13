@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Comunicação Docker</title>
+</head>
+<body>
+    <h1>Comunicação entre dois containers Docker</h1>
+
+    <p>Container 1: Frontend com Nginx</p>
+
+    <h2>Resposta do Container 2:</h2>
+    <p id="resposta">A carregar...</p>
+
+    <script>
+        fetch("/api")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro HTTP");
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("resposta")
+                    .textContent = data.mensagem;
+            })
+            .catch(() => {
+                document.getElementById("resposta")
+                    .textContent = "Erro na comunicação!";
+            });
+    </script>
+</body>
+</html>
